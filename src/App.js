@@ -11,6 +11,8 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [computerSelection, setComputerSelection] = useState(null);
   const [userSelection, setUserSelection] = useState(null);
+  const [userScore, setUserScore] = useState(0);
+  const [computerScore, setComputerScore] = useState(0);
 
   const compareSelection = {
     Rock: () => compareRock[lotto()](),
@@ -20,19 +22,37 @@ function App() {
 
   const compareRock = {
     Rock: () => setWinner("Draw"),
-    Scissor: () => setWinner("User"),
-    Paper: () => setWinner("Computer"),
+    Scissor: () => {
+      setWinner("User");
+      setUserScore(userScore + 1);
+    },
+    Paper: () => {
+      setWinner("Computer");
+      setComputerScore(computerScore + 1);
+    },
   };
 
   const compareScissor = {
-    Rock: () => setWinner("Computer"),
+    Rock: () => {
+      setWinner("Computer");
+      setComputerScore(computerScore + 1);
+    },
     Scissor: () => setWinner("Draw"),
-    Paper: () => setWinner("User"),
+    Paper: () => {
+      setWinner("User");
+      setUserScore(userScore + 1);
+    },
   };
 
   const comparePaper = {
-    Rock: () => setWinner("User"),
-    Scissor: () => setWinner("Computer"),
+    Rock: () => {
+      setWinner("User");
+      setUserScore(userScore + 1);
+    },
+    Scissor: () => {
+      setWinner("Computer");
+      setComputerScore(computerScore + 1);
+    },
     Paper: () => setWinner("Draw"),
   };
 
@@ -51,6 +71,20 @@ function App() {
   const reset = () => {
     setUserSelection(null);
     setComputerSelection(null);
+  };
+
+  const scoreBoard = () => {
+    return (
+      <>
+        <div className="score">
+          User
+          <div className="bigNumber">{userScore}</div>
+        </div>
+        <div className="score">
+          Computer <div className="bigNumber">{computerScore}</div>
+        </div>
+      </>
+    );
   };
 
   const renderImage = (item, name, enabled) => {
@@ -80,18 +114,20 @@ function App() {
     );
 
     return (
-      <>
+      <div className="resultPage">
         <div className="result">
-          Your Selection{renderImage(firstItem, name[firstItem], false)}
+          <div className="text">Your Selection</div>
+          <div>{renderImage(firstItem, name[firstItem], false)}</div>
         </div>
         <div className="result">
-          Computer Selection{renderImage(secondItem, name[secondItem], false)}
+          <div className="text">Computer Selection</div>
+          <div>{renderImage(secondItem, name[secondItem], false)}</div>
         </div>
         <div className="result">
           {winner === "User" ? (
             <>
               <p>{resetButton}</p>
-              <span className="bigTextWon">WON </span>
+              <span className="bigTextWon">YOU WON </span>
             </>
           ) : null}
         </div>
@@ -99,7 +135,7 @@ function App() {
           {winner === "Computer" ? (
             <>
               <p>{resetButton}</p>
-              <span className="bigTextLost">LOST </span>
+              <span className="bigTextLost">YOU LOST </span>
             </>
           ) : null}
         </div>
@@ -114,22 +150,30 @@ function App() {
         {/* <button onClick={() => reset()} type="button">
           Play Again
         </button> */}
-      </>
+      </div>
     );
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        {!userSelection ? (
-          <>
-            <div className="items">{renderImage(item[0], stone, true)}</div>
-            <div className="items"> {renderImage(item[1], paper, true)}</div>
-            <div className="items"> {renderImage(item[2], scissors, true)}</div>
-          </>
-        ) : (
-          <>{renderSelected(userSelection, computerSelection)}</>
-        )}
+        <div className="content">
+          <div className="scoreBoard">{scoreBoard()}</div>
+          {!userSelection ? (
+            <div className="items">
+              <div className="item">{renderImage(item[0], stone, true)}</div>
+              <div className="item"> {renderImage(item[1], paper, true)}</div>
+              <div className="item">
+                {" "}
+                {renderImage(item[2], scissors, true)}
+              </div>
+            </div>
+          ) : (
+            <div className="items">
+              {renderSelected(userSelection, computerSelection)}
+            </div>
+          )}
+        </div>
       </header>
     </div>
   );

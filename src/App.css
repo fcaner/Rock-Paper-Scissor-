@@ -19,7 +19,8 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 110vh;
+  min-width: 45vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,10 +41,25 @@
   }
 }
 
-.result, .items {
+ .item {
+  display: contents;
+  margin: 15px;
+  padding: 30px;
+}
+
+.items {
+  display: block;
+}
+
+
+.result {
   display: flex;
-  flex-direction: column-reverse;
-  margin-right: 10vmin;
+  flex-direction: column;
+}
+
+.resultPage {
+  display: flex;
+  flex-direction: column;
 }
 
 .button {
@@ -60,20 +76,47 @@
 }
 
 .bigTextWon {
-  font-size: 50px;
+  font-size: 25px;
   background-color: green;
-  padding: 15px;
   border-radius: 10%;
 }
 .bigTextLost {
-  font-size: 50px;
+  font-size: 25px;
   background-color: red;
-  padding: 15px;
   border-radius: 10%;
 }
 .bigTextDraw {
-  font-size: 50px;
+  font-size: 25px;
   background-color: #FAD02C;
-  padding: 15px;
   border-radius: 10%;
 }
+
+.scoreBoard {
+  /* border: 1px solid white; */
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 50px;
+}
+
+.content { 
+  display: flex;
+  flex-direction: column;
+}
+
+.score {
+  min-width: 25vmin;
+  min-height: 25vmin;
+  padding: 10px;
+  margin: 10px;
+  color: black;
+  background: linear-gradient(to right, white, #98D9D4)
+}
+
+.bigNumber {
+  font-size: 12vmin;
+}
+
+img {padding: 20px;}
